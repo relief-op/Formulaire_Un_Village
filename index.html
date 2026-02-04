@@ -2,6 +2,8 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <!-- META recommandé par Salesforce -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mise à jour Session - Relief</title>
     
@@ -13,7 +15,7 @@
     <style>
         /* --- CSS STYLE RELIEF --- */
         body {
-            background-color: #f4f6f8; /* Un fond gris très léger pour faire ressortir le formulaire */
+            background-color: #f4f6f8;
             margin: 0;
             padding: 20px;
             font-family: 'Poppins', sans-serif;
@@ -48,13 +50,12 @@
             color: #333;
         }
 
-        /* Style des champs de saisie */
         .relief-form-container input[type="text"],
         .relief-form-container select {
             width: 100%;
             padding: 12px 15px;
             border: 1px solid #ddd;
-            border-radius: 8px; /* Arrondi doux typique de Relief */
+            border-radius: 8px;
             font-size: 15px;
             font-family: 'Poppins', sans-serif;
             box-sizing: border-box;
@@ -62,7 +63,6 @@
             background-color: #f9f9f9;
         }
 
-        /* Focus : couleur turquoise de Relief */
         .relief-form-container input[type="text"]:focus,
         .relief-form-container select:focus {
             border-color: #000000;
@@ -71,7 +71,6 @@
             box-shadow: 0 0 0 3px rgba(0, 179, 152, 0.1);
         }
 
-        /* Gestion du Select Multiple */
         .relief-form-container select[multiple] {
             height: 120px;
         }
@@ -84,7 +83,6 @@
             font-style: italic;
         }
 
-        /* Gestion Checkbox (alignement différent) */
         .checkbox-group {
             display: flex;
             align-items: center;
@@ -103,7 +101,6 @@
             cursor: pointer;
         }
 
-        /* Mise en page pour date et heure côte à côte */
         .form-row {
             display: flex;
             gap: 20px;
@@ -112,7 +109,6 @@
             flex: 1;
         }
 
-        /* Bouton de soumission style Relief */
         .form-actions {
             margin-top: 30px;
             text-align: center;
@@ -125,7 +121,7 @@
             border: none;
             padding: 12px 40px;
             font-size: 16px;
-            border-radius: 30px; /* Bouton "Pill" */
+            border-radius: 30px;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
             -webkit-appearance: none;
@@ -136,15 +132,13 @@
             transform: translateY(-2px);
         }
 
-        /* Nettoyage du span inutile de Salesforce autour des dates */
         .dateInput input {
             width: 100%;
         }
         .dateFormat {
-            display: none; /* Cache le format [1/1/2000] automatique de Salesforce */
+            display: none;
         }
 
-        /* Responsive pour mobile */
         @media (max-width: 500px) {
             .form-row {
                 flex-direction: column;
@@ -159,29 +153,30 @@
 <body>
 
 <div class="relief-form-container">
+   
+
+    <!-- Formulaire Web-to-Lead Salesforce (identiques aux champs fournis) -->
     <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00D3h000003yNW0" method="POST">
 
         <!-- CHAMPS CACHÉS (Ne pas modifier) -->
-        <input type=hidden name="oid" value="00D3h000003yNW0">
-        
-        <!-- Le retURL sera rempli automatiquement par le script en bas de page -->
-        <input type=hidden name="retURL" value="">
-        
-        <input type=hidden name="recordType" id="recordType" value="012OL00000MKfn7YAD">
-        
+        <input type="hidden" name="oid" value="00D3h000003yNW0">
+        <!-- Valeur par défaut sûre (sera écrasée par le script ci-dessous) -->
+        <input type="hidden" name="retURL" value="success.html">
+        <input type="hidden" name="recordType" id="recordType" value="012OL00000MKfn7YAD">
+
         <!-- Champs de débogage (commentés) -->
-        <!-- <input type="hidden" name="debug" value=1> -->
+        <!-- <input type="hidden" name="debug" value="1"> -->
         <!-- <input type="hidden" name="debugEmail" value="pascale.lapointe@relief.ca"> -->
 
         <div class="form-group">
-            <label for="00NOL00000UjCBp">ID participant Un Village</label>
-            <!-- Hint retiré ici -->
+            <label for="00NOL00000UjCBp">Numéro d'assurance maladie du patient:</label>
             <input id="00NOL00000UjCBp" maxlength="60" name="00NOL00000UjCBp" size="20" type="text" />
         </div>
 
         <div class="form-group">
-            <label for="00NOL00000Uixsl">Nom de la session à mettre à jour</label>
-            <select id="00NOL00000Uixsl" name="00NOL00000Uixsl">
+            <label for="00NOL00000Uixsl">Nom de la session à mettre à jour:</label>
+            <select id="00NOL00000Uixsl" name="00NOL00000Uixsl" title="Nom de la session à mettre à jour">
+                <option value="">--None--</option>
                 <option value="Session 1 - Psychothérapie virtuelle Praxis">Session 1 - Psychothérapie virtuelle Praxis</option>
                 <option value="Session 2 - Psychothérapie virtuelle Praxis">Session 2 - Psychothérapie virtuelle Praxis</option>
                 <option value="Session 3 - Psychothérapie virtuelle Praxis">Session 3 - Psychothérapie virtuelle Praxis</option>
@@ -203,22 +198,22 @@
 
         <div class="form-row">
             <div class="form-group half-width">
-                <label for="00NOL00000Uj9sJ">Date session (AAAA-MM-JJ)</label>
+                <label for="00NOL00000Uj9sJ">Date session (AAAA-MM-JJ):</label>
                 <span class="dateInput dateOnlyInput">
-                    <input id="00NOL00000Uj9sJ" name="00NOL00000Uj9sJ" size="12" type="text" placeholder="2024-01-01" />
+                    <input id="00NOL00000Uj9sJ" name="00NOL00000Uj9sJ" size="12" type="text" placeholder="2026-01-01" />
                 </span>
             </div>
 
             <div class="form-group half-width">
-                <label for="00NOL00000Uj999">Heure de la session (HH:MM)</label>
+                <label for="00NOL00000Uj999">Heure de la session (HH:MM):</label>
                 <input id="00NOL00000Uj999" maxlength="20" name="00NOL00000Uj999" size="20" type="text" placeholder="14:00" />
             </div>
         </div>
 
         <div class="form-group">
-            <label for="00NOL00000Uj3zn">Statut session</label>
-            <select id="00NOL00000Uj3zn" name="00NOL00000Uj3zn">
-                <option value="">- Sélectionner -</option>
+            <label for="00NOL00000Uj3zn">Statut session:</label>
+            <select id="00NOL00000Uj3zn" name="00NOL00000Uj3zn" title="Statut session">
+                <option value="">--None--</option>
                 <option value="A eu lieu">A eu lieu</option>
                 <option value="No show">No show</option>
                 <option value="Annulée (à l'intérieur de 24h avec frais)">Annulée (à l'intérieur de 24h avec frais)</option>
@@ -227,9 +222,9 @@
         </div>
 
         <div class="form-group">
-            <label for="00NOL00000Umaaz">Fin du service</label>
-            <select id="00NOL00000Umaaz" name="00NOL00000Umaaz">
-                <option value="">- Sélectionner -</option>
+            <label for="00NOL00000Umaaz">Fin du service:</label>
+            <select id="00NOL00000Umaaz" name="00NOL00000Umaaz" title="Fin du service">
+                <option value="">--None--</option>
                 <option value="Désistement">Désistement</option>
                 <option value="Terminé avec suivi nécessaire">Terminé avec suivi nécessaire</option>
                 <option value="Terminé sans suivi nécessaire">Terminé sans suivi nécessaire</option>
@@ -237,9 +232,9 @@
         </div>
 
         <div class="form-group">
-            <label for="00NOL00000UjA6p">Professionnelle qui a fait la rencontre</label>
-            <select id="00NOL00000UjA6p" name="00NOL00000UjA6p">
-                <option value="">- Sélectionner -</option>
+            <label for="00NOL00000UjA6p">Professionnelle qui a fait la rencontre:</label>
+            <select id="00NOL00000UjA6p" name="00NOL00000UjA6p" title="Professionnelle qui a fait la rencontre">
+                <option value="">--None--</option>
                 <option value="Katherine Tardif">Katherine Tardif</option>
                 <option value="Frédérique Drapeau-Jacob">Frédérique Drapeau-Jacob</option>
                 <option value="Isabelle Guilbault">Isabelle Guilbault</option>
@@ -257,19 +252,17 @@
 <script>
     console.log("Formulaire prêt");
 
-    const pageSucces = "success.html"; 
-    // ---------------------
+    const pageSucces = "success.html";
 
     // Fonction pour construire l'URL absolue (nécessaire pour Salesforce)
     try {
         const currentUrl = window.location.href;
-        // On prend l'URL courante, on retire le nom du fichier actuel, et on ajoute le fichier succès
         const directory = currentUrl.substring(0, currentUrl.lastIndexOf('/'));
         const finalRetUrl = directory + "/" + pageSucces;
         
         // On assigne cette URL au champ caché retURL
         const retUrlInput = document.querySelector('input[name="retURL"]');
-        if(retUrlInput) {
+        if (retUrlInput) {
             retUrlInput.value = finalRetUrl;
             console.log("URL de redirection configurée vers : " + finalRetUrl);
         }
@@ -280,4 +273,3 @@
 
 </body>
 </html>
-
